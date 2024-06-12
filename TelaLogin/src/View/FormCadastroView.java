@@ -24,10 +24,12 @@ public class FormCadastroView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jFormattedTextField3 = new javax.swing.JFormattedTextField();
         jLabel3 = new javax.swing.JLabel();
-        jFormattedTextField4 = new javax.swing.JFormattedTextField();
-        jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
+        jPasswordField2 = new javax.swing.JPasswordField();
+        jLabel4 = new javax.swing.JLabel();
+        jPasswordField3 = new javax.swing.JPasswordField();
+        jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -52,17 +54,11 @@ public class FormCadastroView extends javax.swing.JFrame {
         getContentPane().add(jLabel2);
         jLabel2.setBounds(140, 150, 70, 16);
         getContentPane().add(jFormattedTextField3);
-        jFormattedTextField3.setBounds(140, 220, 220, 22);
+        jFormattedTextField3.setBounds(140, 280, 220, 22);
 
         jLabel3.setText("E-mail:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(140, 200, 80, 16);
-        getContentPane().add(jFormattedTextField4);
-        jFormattedTextField4.setBounds(140, 270, 220, 22);
-
-        jLabel4.setText("CPF:");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(140, 250, 80, 16);
+        jLabel3.setBounds(140, 260, 80, 16);
 
         jButton2.setText("Cadastrar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -71,9 +67,21 @@ public class FormCadastroView extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(200, 310, 110, 23);
+        jButton2.setBounds(190, 330, 110, 23);
         getContentPane().add(jPasswordField1);
         jPasswordField1.setBounds(140, 170, 220, 22);
+        getContentPane().add(jPasswordField2);
+        jPasswordField2.setBounds(140, 170, 220, 22);
+
+        jLabel4.setText("Senha");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(140, 150, 70, 16);
+        getContentPane().add(jPasswordField3);
+        jPasswordField3.setBounds(140, 230, 220, 22);
+
+        jLabel6.setText("Confirme a senha:");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(140, 210, 120, 16);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/Navy and Blue Abstract Modern Globe Technology Logo Design.png"))); // NOI18N
         getContentPane().add(jLabel5);
@@ -90,9 +98,19 @@ public class FormCadastroView extends javax.swing.JFrame {
         String login = jFormattedTextField1.getText();
         String senha = new String(jPasswordField1.getPassword());
         String email = jFormattedTextField3.getText();
-        String cpf = jFormattedTextField4.getText();
+        String confirmacaoSenha = new String(jPasswordField3.getPassword());
+        
+        if (login.isEmpty() || senha.isEmpty() || confirmacaoSenha.isEmpty() || email.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, preencha todos os campos.");
+        return; // Não continua com o processo de cadastro
+    }
 
-        String sql = "INSERT INTO usuarios (login, senha, email, cpf) VALUES (?, ?, ?, ?)";
+        if (!senha.equals(confirmacaoSenha)) {
+        JOptionPane.showMessageDialog(this, "As senhas não correspondem. Por favor, digite novamente.");
+        return; 
+        }
+
+        String sql = "INSERT INTO usuarios (login, senha, email) VALUES (?, ?, ?)";
 
         try (Connection conexao = Conexao.getConnection();
              PreparedStatement pstmt = conexao.prepareStatement(sql)) {
@@ -100,7 +118,6 @@ public class FormCadastroView extends javax.swing.JFrame {
             pstmt.setString(1, login);
             pstmt.setString(2, senha);
             pstmt.setString(3, email);
-            pstmt.setString(4, cpf);
 
             pstmt.executeUpdate();
             JOptionPane.showMessageDialog(this, "Dados inseridos com sucesso!");
@@ -126,12 +143,14 @@ public class FormCadastroView extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JFormattedTextField jFormattedTextField3;
-    private javax.swing.JFormattedTextField jFormattedTextField4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField jPasswordField2;
+    private javax.swing.JPasswordField jPasswordField3;
     // End of variables declaration//GEN-END:variables
 }

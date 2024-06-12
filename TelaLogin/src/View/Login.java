@@ -35,7 +35,7 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(txtUsuario);
         txtUsuario.setBounds(180, 160, 180, 22);
 
-        jLabel1.setText("Login:");
+        jLabel1.setText("Email:");
         getContentPane().add(jLabel1);
         jLabel1.setBounds(180, 140, 70, 16);
 
@@ -91,23 +91,24 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      String login = txtUsuario.getText();
+      String email = txtUsuario
+              .getText();
       String senha = new String(jPasswordField1.getPassword());
 
     // Verificar se os campos de login e senha estão vazios
-      if (login.isEmpty() || senha.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Por favor, preencha o campo de login e senha.");
+      if (email.isEmpty() || senha.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Por favor, preencha o campo de email e senha.");
       } else {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         // Verificar no banco de dados se o login e a senha estão corretos
-        if (usuarioDAO.verificarLoginSenha(login, senha)) {
+        if (usuarioDAO.verificarLoginSenha(email, senha)) {
             // Se o login e a senha estiverem corretos, redirecione para o MenuView
             MenuView telaDeMenu = new MenuView();
             this.dispose();
         telaDeMenu.setVisible(true);    }//GEN-LAST:event_jButton2ActionPerformed
     else {
         // Se o login e a senha estiverem incorretos, exiba uma mensagem de erro
-        JOptionPane.showMessageDialog(this, "Login ou senha incorretos. Por favor, tente novamente.");
+        JOptionPane.showMessageDialog(this, "Email ou senha incorretos. Por favor, tente novamente.");
     }
    }
     }     
@@ -122,7 +123,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-             FormCadastroView telaDeCadastro = new FormCadastroView();
+    FormCadastroView telaDeCadastro = new FormCadastroView();
     telaDeCadastro.setVisible(true);
     this.dispose(); // Fecha a janela de login                        
     

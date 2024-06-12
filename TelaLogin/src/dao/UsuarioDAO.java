@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class UsuarioDAO {
     
-    public boolean verificarLoginSenha(String login, String senha) {
+    public boolean verificarLoginSenha(String email, String senha) {
         Connection conexao = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -15,9 +15,9 @@ public class UsuarioDAO {
         
         try {
             conexao = Conexao.getConnection();
-            String sql = "SELECT * FROM usuarios WHERE login = ? AND senha = ?";
+            String sql = "SELECT * FROM usuarios WHERE email = ? AND senha = ?";
             pstmt = conexao.prepareStatement(sql);
-            pstmt.setString(1, login);
+            pstmt.setString(1, email);
             pstmt.setString(2, senha);
             rs = pstmt.executeQuery();
             
